@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import f
 from scipy.stats import t
-from limma.core.test_functions import classify_tests_f
-from limma.core.squeezeVar import squeezeVar
+from .test_functions import classify_tests_f
+from .squeezeVar import squeezeVar
 
 def eBayes(fit,proportion=0.01,stdev_coef_lim=(0.1,4),trend=False,robust=False,winsor_tail_p=(0.05,0.1),legacy=None):
 
@@ -47,8 +47,8 @@ def eBayes(fit,proportion=0.01,stdev_coef_lim=(0.1,4),trend=False,robust=False,w
 def _ebayes(fit, proportion, stdev_coef_lim, trend, robust, winsor_tail_p, legacy):
     coefficients = fit["coefficients"]
     stdev_unscaled = fit["stdev_unscaled"]
-    sigma = fit["sigma"]
-    df_residual = fit["df_residual"]
+    sigma = fit["sigma"].values
+    df_residual = fit["df_residual"].values
 
     if (coefficients is None or
             stdev_unscaled is None or
@@ -121,8 +121,10 @@ def _ebayes(fit, proportion, stdev_coef_lim, trend, robust, winsor_tail_p, legac
         import warnings
         warnings.warn("Estimation of var.prior failed - set to default value")
 
-    r = np.tile(out["var_prior"], (stdev_unscaled.shape[1], 1)).T
-    r = (stdev_unscaled ** 2 + r) / stdev_unscaled ** 2
+    r = np.zeros_like(stdev_np)
+    for j in range(stdev_np.shape[1]):
+        r[:, j] = (stdev_np[:, j] ** 2 + out["var_prior"][j]) / stdev_np[:, j] ** 2
+
     t2 = out["t"] ** 2
 
     Infdf = out["df_prior"] > 10 ** 6
@@ -137,20 +139,21 @@ def _ebayes(fit, proportion, stdev_coef_lim, trend, robust, winsor_tail_p, legac
         # 在计算 kernel 之前，先处理 df.total 的形状
         df_total = out["df_total"]
         # 确保 df_total 是形状为 (10859, 1) 的二维数组
-        df_total_2d = df_total.values.reshape(-1, 1)
+        df_total_2d = df_total.reshape(-1, 1)
         # 用调整后的 df_total_2d 进行计算
         kernel = (1 + df_total_2d) / 2 * np.log((t2 + df_total_2d) / (t2 / r + df_total_2d))
 
     out["lods"] = np.log(proportion / (1 - proportion)) - np.log(r) / 2 + kernel
 
+
+
     return out
 
+
 def tmixture_matrix(tstat, stdev_unscaled, df, proportion, v0_lim=None):
-
-    tstat = np.atleast_2d(tstat).T
-
-    # 确保 stdev_unscaled 是二维数组
-    stdev_unscaled = np.atleast_2d(stdev_unscaled).T
+    # 确保输入是二维数组
+    tstat = np.atleast_2d(tstat)
+    stdev_unscaled = np.atleast_2d(stdev_unscaled)
 
     if tstat.shape != stdev_unscaled.shape:
         raise ValueError("Dims of tstat and stdev.unscaled don't match")
@@ -160,8 +163,12 @@ def tmixture_matrix(tstat, stdev_unscaled, df, proportion, v0_lim=None):
 
     ncoef = tstat.shape[1]
     v0 = np.zeros(ncoef)
+
+    # 为每个系数列计算 var.prior
     for j in range(ncoef):
+
         v0[j] = tmixture_vector(tstat[:, j], stdev_unscaled[:, j], df, proportion, v0_lim)
+
 
     return v0
 
@@ -177,7 +184,7 @@ def tmixture_vector(tstat, stdev_unscaled, df, proportion, v0_lim=None):
     ngenes = len(tstat)
     ntarget = int(np.ceil(proportion / 2 * ngenes))
     if ntarget < 1:
-        return None
+        return np.nan
 
     p = max(ntarget / ngenes, proportion)
     tstat = np.abs(tstat)
@@ -185,7 +192,7 @@ def tmixture_vector(tstat, stdev_unscaled, df, proportion, v0_lim=None):
     i = df < MaxDF
     if np.any(i):
         TailP = t.logsf(tstat[i], df[i])
-        tstat[i] = t.logppf(TailP, MaxDF)
+        tstat[i] = t.ppf(1 - np.exp(TailP), MaxDF)
         df[i] = MaxDF
 
     o = np.argsort(-tstat)[:ntarget]
@@ -203,5 +210,8 @@ def tmixture_vector(tstat, stdev_unscaled, df, proportion, v0_lim=None):
 
     if v0_lim is not None:
         v0 = np.clip(v0, v0_lim[0], v0_lim[1])
+
+    if len(v0) == 0 or np.all(np.isnan(v0)):
+        return 0.0
 
     return np.mean(v0)
