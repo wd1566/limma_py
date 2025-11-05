@@ -668,7 +668,7 @@ n_contrasts 是对比表达式数量（来自 *args 和 contrasts 参数）</p>
 - <code>fit</code>: 通常来自eBayes的线性模型拟合结果字典</p>
 <ul>
 <li>
-<p><code>coef</code>: 要显示的系数，可以是列索引或索引列表</p>
+<p><code>coef</code>: 要显示的系数，可以是列索引或索引列表,这里和r存在差异，如果想显示最前列的系数在r中写做coef = 1，而在此库中写做coef = [0]</p>
 </li>
 <li>
 <p><code>number</code>: 要显示的顶级基因数量，默认10</p>
