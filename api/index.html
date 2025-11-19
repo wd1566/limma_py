@@ -22,7 +22,7 @@
     
     
       
-        <title>API参考 - limma-py</title>
+        <title>API Reference - limma-py</title>
       
     
     
@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#api" class="md-skip">
+        <a href="#api-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API参考
+              API Reference
             
           </span>
         </div>
@@ -227,7 +227,7 @@
   
     
   
-  首页
+  Home
 
       </a>
     </li>
@@ -246,7 +246,7 @@
   
     
   
-  安装
+  Installation
 
       </a>
     </li>
@@ -265,7 +265,7 @@
   
     
   
-  使用示例
+  Examples
 
       </a>
     </li>
@@ -286,7 +286,7 @@
   
     
   
-  API参考
+  API Reference
 
       </a>
     </li>
@@ -340,7 +340,7 @@
   
   
   <span class="md-ellipsis">
-    首页
+    Home
     
   </span>
   
@@ -362,7 +362,7 @@
   
   
   <span class="md-ellipsis">
-    安装
+    Installation
     
   </span>
   
@@ -384,7 +384,7 @@
   
   
   <span class="md-ellipsis">
-    使用示例
+    Examples
     
   </span>
   
@@ -415,7 +415,7 @@
   
   
   <span class="md-ellipsis">
-    API参考
+    API Reference
     
   </span>
   
@@ -428,7 +428,7 @@
   
   
   <span class="md-ellipsis">
-    API参考
+    API Reference
     
   </span>
   
@@ -451,13 +451,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#core-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      核心函数
+      Core Functions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="核心函数">
+    <nav class="md-nav" aria-label="Core Functions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -534,182 +534,182 @@
 
 
 
-<h1 id="api">API参考<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
-<h2 id="_1">核心函数<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<h2 id="core-functions">Core Functions<a class="headerlink" href="#core-functions" title="Permanent link">&para;</a></h2>
 <h3 id="lmfitobject-designnone-kwargs"><code>lmFit(object, design=None, **kwargs)</code><a class="headerlink" href="#lmfitobject-designnone-kwargs" title="Permanent link">&para;</a></h3>
-<p>线性模型拟合函数，是limma分析流程的第一步。</p>
-<p><strong>参数：</strong></p>
+<p>Linear model fitting function, the first step in the limma analysis pipeline.</p>
+<p><strong>Parameters:</strong></p>
 <ul>
 <li>
-<p><code>object</code>: 基因表达数据矩阵，形状为(基因数, 样本数)，可以是numpy数组、pandas DataFrame</p>
+<p><code>object</code>: Gene expression data matrix with shape (genes × samples), can be numpy array or pandas DataFrame</p>
 </li>
 <li>
-<p><code>design</code>: 设计矩阵，形状为(样本数, 系数)，如果为None则创建仅截距模型</p>
+<p><code>design</code>: Design matrix with shape (samples × coefficients), creates intercept-only model if None</p>
 </li>
 <li>
-<p><code>ndups</code>: 每个基因的重复数（用于同一基因由多个探针表示的情况）</p>
+<p><code>ndups</code>: Number of duplicates for each gene (used when the same gene is represented by multiple probes)</p>
 </li>
 <li>
-<p><code>spacing</code>: 重复之间的间距</p>
+<p><code>spacing</code>: Spacing between duplicates</p>
 </li>
 <li>
-<p><code>weights</code>: 观测权重，可以是向量或与数据维度匹配的矩阵</p>
+<p><code>weights</code>: Observation weights, can be a vector or matrix matching data dimensions</p>
 </li>
 <li>
-<p><code>method</code>: 拟合方法，目前仅支持"ls"（最小二乘法）</p>
+<p><code>method</code>: Fitting method, currently only "ls" (least squares) is supported</p>
 </li>
 </ul>
-<p><strong>返回：</strong>
-包含线性模型拟合结果的字典：
-- <code>coefficients</code>: 系数矩阵 (基因数 × 系数)</p>
+<p><strong>Returns:</strong>
+Dictionary containing linear model fitting results:
+- <code>coefficients</code>: Coefficient matrix (genes × coefficients)</p>
 <ul>
 <li>
-<p><code>stdev_unscaled</code>: 未缩放的标准误差矩阵</p>
+<p><code>stdev_unscaled</code>: Unscaled standard errors matrix</p>
 </li>
 <li>
-<p><code>sigma</code>: 残差标准差</p>
+<p><code>sigma</code>: Residual standard deviations</p>
 </li>
 <li>
-<p><code>df_residual</code>: 残差自由度</p>
+<p><code>df_residual</code>: Residual degrees of freedom</p>
 </li>
 <li>
-<p><code>cov_coefficients</code>: 系数协方差矩阵</p>
+<p><code>cov_coefficients</code>: Coefficient covariance matrix</p>
 </li>
 <li>
-<p><code>rank</code>: 设计矩阵的秩</p>
+<p><code>rank</code>: Rank of the design matrix</p>
 </li>
 <li>
-<p><code>Amean</code>: 跨样本的平均表达水平</p>
+<p><code>Amean</code>: Average expression levels across samples</p>
 </li>
 <li>
-<p><code>design</code>: 使用的设计矩阵</p>
+<p><code>design</code>: Design matrix used for fitting</p>
 </li>
 </ul>
 <h3 id="make_contrastsargs-contrastsnone-levels"><code>make_contrasts(*args, contrasts=None, levels)</code><a class="headerlink" href="#make_contrastsargs-contrastsnone-levels" title="Permanent link">&para;</a></h3>
-<p>生成对比矩阵，支持直接输入pandas DataFrame作为levels参数。</p>
-<p><strong>参数：</strong></p>
+<p>Generate contrast matrix, supports direct input of pandas DataFrame as levels parameter.</p>
+<p><strong>Parameters:</strong></p>
 <ul>
 <li>
-<p><code>*args</code>:用于传递对比表达式字符串（例如 "groupD - groupC"），与 contrasts 参数功能相同，两者可选择其一或同时使用
-示例：make_contrasts("A - B", "C - (A+B)/2", levels=levels)</p>
+<p><code>*args</code>: Used to pass contrast expression strings (e.g., "groupD - groupC"), functionally same as contrasts parameter, choose one or use both
+Example: make_contrasts("A - B", "C - (A+B)/2", levels=levels)</p>
 </li>
 <li>
-<p><code>contrasts</code>: 用于传递对比表达式字符串（例如 "groupD - groupC"），与 contrasts 参数功能相同，两者可选择其一或同时使用
-示例：make_contrasts("A - B", "C - (A+B)/2", levels=levels)</p>
+<p><code>contrasts</code>: Used to pass contrast expression strings (e.g., "groupD - groupC"), functionally same as *args parameter, choose one or use both
+Example: make_contrasts("A - B", "C - (A+B)/2", levels=levels)</p>
 </li>
 <li>
-<p><code>levels</code>: 设计矩阵（可直接输入pd.DataFrame）或列名列表</p>
+<p><code>levels</code>: Design matrix (can directly input pd.DataFrame) or list of column names</p>
 </li>
 </ul>
-<p><strong>返回：</strong>
-- <code>对比矩阵</code>: (np.ndarray)形状为 (n_levels, n_contrasts)，其中：
-n_levels 是水平数量（来自 levels 参数）
-n_contrasts 是对比表达式数量（来自 *args 和 contrasts 参数）</p>
+<p><strong>Returns:</strong>
+- <code>Contrast matrix</code>: (np.ndarray) Shape (n_levels, n_contrasts), where:
+n_levels is the number of levels (from levels parameter)
+n_contrasts is the number of contrast expressions (from *args and contrasts parameters)</p>
 <h3 id="contrasts_fitfit-contrastsnone-coefficientsnone"><code>contrasts_fit(fit, contrasts=None, coefficients=None)</code><a class="headerlink" href="#contrasts_fitfit-contrastsnone-coefficientsnone" title="Permanent link">&para;</a></h3>
-<p>从线性模型拟合结果中提取指定组对比的结果。</p>
-<p><strong>参数：</strong></p>
+<p>Extract results of specified group contrasts from linear model fitting results.</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><code>fit</code>: 线性模型拟合结果字典，必须包含以下键：</li>
+<li><code>fit</code>: Linear model fitting results dictionary, must contain the following keys:</li>
 </ul>
-<p>coefficients: 基因×系数表达系数矩阵</p>
-<p>stdev_unscaled: 基因×系数未缩放标准差矩阵</p>
-<p>cov_coefficients: 系数协方差矩阵（可选）</p>
+<p>coefficients: Gene×coefficient expression coefficient matrix</p>
+<p>stdev_unscaled: Gene×coefficient unscaled standard deviation matrix</p>
+<p>cov_coefficients: Coefficient covariance matrix (optional)</p>
 <ul>
 <li>
-<p><code>contrasts</code>: 对比矩阵（行数 = fit中的系数数量，列数 = 对比数量）</p>
+<p><code>contrasts</code>: Contrast matrix (rows = number of coefficients in fit, columns = number of contrasts)</p>
 </li>
 <li>
-<p><code>coefficients</code>: 要保留的系数列索引/名称（与contrasts互斥）</p>
+<p><code>coefficients</code>: Column indices/names of coefficients to retain (mutually exclusive with contrasts)</p>
 </li>
 </ul>
-<p><strong>返回：</strong>
-更新后的拟合结果字典，核心字段根据对比矩阵调整。</p>
+<p><strong>Returns:</strong>
+Updated fitting results dictionary with core fields adjusted according to the contrast matrix.</p>
 <h3 id="ebayesfit-proportion001-trendfalse-kwargs"><code>eBayes(fit, proportion=0.01, trend=False, **kwargs)</code><a class="headerlink" href="#ebayesfit-proportion001-trendfalse-kwargs" title="Permanent link">&para;</a></h3>
-<p>线性模型拟合的经验贝叶斯调节标准误差。</p>
-<p><strong>参数：</strong>
-- <code>fit</code>: 来自lmFit的线性模型拟合结果字典</p>
+<p>Empirical Bayes moderation of standard errors for linear model fits.</p>
+<p><strong>Parameters:</strong>
+- <code>fit</code>: Linear model fitting results dictionary from lmFit</p>
 <ul>
 <li>
-<p><code>proportion</code>: 预期差异表达基因的先验比例，默认0.01</p>
+<p><code>proportion</code>: Prior proportion of genes expected to be differentially expressed, default 0.01</p>
 </li>
 <li>
-<p><code>trend</code>: 是否考虑方差随表达水平的趋势</p>
+<p><code>trend</code>: Whether to account for trend in variances with expression level</p>
 </li>
 <li>
-<p><code>winsor_tail_p</code>: 稳健估计中的Winsorization尾概率</p>
+<p><code>winsor_tail_p</code>: Tail probabilities for Winsorization in robust estimation</p>
 </li>
 </ul>
-<p><strong>返回：</strong>
-更新后的拟合字典，包含经验贝叶斯结果：
-- <code>df_prior</code>: 先验自由度</p>
+<p><strong>Returns:</strong>
+Updated fit dictionary containing empirical Bayes results:
+- <code>df_prior</code>: Prior degrees of freedom</p>
 <ul>
 <li>
-<p><code>s2_prior</code>: 先验方差</p>
+<p><code>s2_prior</code>: Prior variance</p>
 </li>
 <li>
-<p><code>t</code>: 调节后的t统计量</p>
+<p><code>t</code>: Moderated t-statistics</p>
 </li>
 <li>
-<p><code>p_value</code>: 调节后的p值</p>
+<p><code>p_value</code>: Moderated p-values</p>
 </li>
 <li>
-<p><code>lods</code>: 差异表达的对数概率</p>
+<p><code>lods</code>: Log-odds of differential expression</p>
 </li>
 <li>
-<p><code>F</code>: F统计量（如果设计允许）</p>
+<p><code>F</code>: F-statistics (if design permits)</p>
 </li>
 <li>
-<p><code>F_p_value</code>: F检验p值</p>
+<p><code>F_p_value</code>: F-test p-values</p>
 </li>
 </ul>
 <h3 id="toptablefit-coef0-number10-adjust_methodbh-kwargs"><code>toptable(fit, coef=[0], number=10, adjust_method="BH", **kwargs)</code><a class="headerlink" href="#toptablefit-coef0-number10-adjust_methodbh-kwargs" title="Permanent link">&para;</a></h3>
-<p>从线性模型拟合中提取排名靠前的基因表。</p>
-<p><strong>参数：</strong>
-- <code>fit</code>: 通常来自eBayes的线性模型拟合结果字典</p>
+<p>Extract a table of the top-ranked genes from linear model fit.</p>
+<p><strong>Parameters:</strong>
+- <code>fit</code>: Typically linear model fitting results dictionary from eBayes</p>
 <ul>
 <li>
-<p><code>coef</code>: 要显示的系数，可以是列索引或索引列表,这里和r存在差异，如果想显示最前列的系数在r中写做coef = 1，而在此库中写做coef = [0]</p>
+<p><code>coef</code>: Coefficient(s) to display, can be column index or list of indices. Note: Difference from R - to display the first coefficient, use coef=[0] in this library (vs coef=1 in R)</p>
 </li>
 <li>
-<p><code>number</code>: 要显示的顶级基因数量，默认10</p>
+<p><code>number</code>: Number of top genes to display, default 10</p>
 </li>
 <li>
-<p><code>adjust_method</code>: 多重检验校正方法："BH"（Benjamini-Hochberg）、"BY"、"bonferroni"、"holm"、"none"</p>
+<p><code>adjust_method</code>: Multiple testing correction methods: "BH" (Benjamini-Hochberg), "BY", "bonferroni", "holm", "none"</p>
 </li>
 <li>
-<p><code>sort_by</code>: 结果排序依据："B"（对数概率）、"logFC"、"AveExpr"、"P"（p值）、"t"、"none"</p>
+<p><code>sort_by</code>: Column to sort results by: "B" (log-odds), "logFC", "AveExpr", "P" (p-value), "t", "none"</p>
 </li>
 <li>
-<p><code>p_value</code>: p值过滤 cutoff，默认1.0（无过滤）</p>
+<p><code>p_value</code>: P-value cutoff for filtering, default 1.0 (no filtering)</p>
 </li>
 <li>
-<p><code>lfc</code>: 对数倍变化cutoff（log2尺度）</p>
+<p><code>lfc</code>: Log-fold-change cutoff (log2 scale)</p>
 </li>
 <li>
-<p><code>confint</code>: 是否计算置信区间</p>
+<p><code>confint</code>: Whether to compute confidence intervals</p>
 </li>
 </ul>
-<p><strong>返回：</strong>
-包含顶级基因的pandas DataFrame，列包括：
-- <code>logFC</code>: 对数倍变化</p>
+<p><strong>Returns:</strong>
+Pandas DataFrame containing top-ranked genes with columns:
+- <code>logFC</code>: Log-fold change</p>
 <ul>
 <li>
-<p><code>AveExpr</code>: 平均表达水平</p>
+<p><code>AveExpr</code>: Average expression level</p>
 </li>
 <li>
-<p><code>t</code>: 调节后的t统计量</p>
+<p><code>t</code>: Moderated t-statistic</p>
 </li>
 <li>
-<p><code>P.Value</code>: p值</p>
+<p><code>P.Value</code>: P-value</p>
 </li>
 <li>
-<p><code>adj.P.Val</code>: 调整后的p值（FDR）</p>
+<p><code>adj.P.Val</code>: Adjusted p-value (FDR)</p>
 </li>
 <li>
-<p><code>B</code>: 差异表达的对数概率</p>
+<p><code>B</code>: Log-odds of differential expression</p>
 </li>
 <li>
-<p><code>CI.L</code>, <code>CI.R</code>: 置信区间上下限（如果confint=True）</p>
+<p><code>CI.L</code>, <code>CI.R</code>: Confidence interval lower/upper bounds (if confint=True)</p>
 </li>
 </ul>
 

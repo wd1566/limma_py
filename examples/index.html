@@ -24,7 +24,7 @@
     
     
       
-        <title>使用示例 - limma-py</title>
+        <title>Examples - limma-py</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#data-format-requirements" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              使用示例
+              Examples
             
           </span>
         </div>
@@ -229,7 +229,7 @@
   
     
   
-  首页
+  Home
 
       </a>
     </li>
@@ -248,7 +248,7 @@
   
     
   
-  安装
+  Installation
 
       </a>
     </li>
@@ -269,7 +269,7 @@
   
     
   
-  使用示例
+  Examples
 
       </a>
     </li>
@@ -288,7 +288,7 @@
   
     
   
-  API参考
+  API Reference
 
       </a>
     </li>
@@ -342,7 +342,7 @@
   
   
   <span class="md-ellipsis">
-    首页
+    Home
     
   </span>
   
@@ -364,7 +364,7 @@
   
   
   <span class="md-ellipsis">
-    安装
+    Installation
     
   </span>
   
@@ -393,7 +393,7 @@
   
   
   <span class="md-ellipsis">
-    使用示例
+    Examples
     
   </span>
   
@@ -406,7 +406,7 @@
   
   
   <span class="md-ellipsis">
-    使用示例
+    Examples
     
   </span>
   
@@ -427,19 +427,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#data-format-requirements" class="md-nav__link">
     <span class="md-ellipsis">
-      数据格式要求
+      Data Format Requirements
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="数据格式要求">
+    <nav class="md-nav" aria-label="Data Format Requirements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#format-specifications" class="md-nav__link">
     <span class="md-ellipsis">
-      格式说明：
+      Format Specifications:
     </span>
   </a>
   
@@ -451,18 +451,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#practical-example" class="md-nav__link">
     <span class="md-ellipsis">
-      实际示例
+      Practical Example
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#common-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      常见问题
+      Common Issues
     </span>
   </a>
   
@@ -488,7 +488,7 @@
   
   
   <span class="md-ellipsis">
-    API参考
+    API Reference
     
   </span>
   
@@ -514,89 +514,89 @@
 
 
 
-  <h1>使用示例</h1>
+  <h1>Examples</h1>
 
-<h2 id="_1">数据格式要求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>limma-py要求输入数据为CSV格式，具体结构如下：
+<h2 id="data-format-requirements">Data Format Requirements<a class="headerlink" href="#data-format-requirements" title="Permanent link">&para;</a></h2>
+<p>limma-py requires input data in CSV format with the following structure:
 <div class="highlight"><pre><span></span><code>Gene,Sample1,Sample2,Sample3,Sample4,Sample5,Sample6,Sample7,Sample8,Sample9,Sample10
 Gene_1,8.45,7.89,8.12,15.67,14.89,16.23,8.33,7.95,8.21,8.09
 Gene_2,12.34,11.89,12.56,11.45,10.98,12.11,25.67,24.89,26.01,25.34
 Gene_3,5.67,6.01,5.89,18.90,19.45,18.23,6.12,5.78,6.34,5.95
 </code></pre></div></p>
-<h3 id="_2">格式说明：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="format-specifications">Format Specifications:<a class="headerlink" href="#format-specifications" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>第一列: 基因/蛋白名称（任意标识符）</p>
+<p>First column: Gene/protein names (any identifier)</p>
 </li>
 <li>
-<p>后续列: 数值型表达矩阵，每列代表一个样本</p>
+<p>Subsequent columns: Numerical expression matrix, each column represents a sample</p>
 </li>
 <li>
-<p>必须为CSV格式，其他格式需要先转换</p>
+<p>Must be in CSV format, other formats need to be converted first</p>
 </li>
 </ul>
-<h2 id="_3">实际示例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="practical-example">Practical Example<a class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">limma_py</span>
 
-<span class="c1"># 读取CSV文件，header=0表示第一行是列名</span>
+<span class="c1"># Read CSV file, header=0 indicates first row contains column names</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Harmine_iTSA.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c1"># 提取基因名称（第一列）</span>
+<span class="c1"># Extract gene names (first column)</span>
 <span class="n">gene_names</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 
-<span class="c1"># 提取表达矩阵（从第二列开始的所有列）</span>
+<span class="c1"># Extract expression matrix (all columns from second column onward)</span>
 <span class="n">expr_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
 
-<span class="c1"># 定义实验组别：前5个样本为对照组(V_group)，后5个样本为处理组(D_group)</span>
+<span class="c1"># Define experimental groups: first 5 samples as control (V_group), last 5 as treatment (D_group)</span>
 <span class="n">group</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;V_group&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;D_group&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
 
-<span class="c1"># 使用one-hot编码创建设计矩阵</span>
+<span class="c1"># Create design matrix using one-hot encoding</span>
 <span class="n">design_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s2">&quot;V_group&quot;</span><span class="p">,</span> <span class="s2">&quot;D_group&quot;</span><span class="p">]]</span>
 
-<span class="c1"># 确保设计矩阵为整数类型</span>
+<span class="c1"># Ensure design matrix is integer type</span>
 <span class="n">design</span> <span class="o">=</span> <span class="n">design_df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-<span class="c1"># 创建表达矩阵副本，并设置基因名为行索引</span>
+<span class="c1"># Create expression matrix copy and set gene names as row index</span>
 <span class="n">expr_matrix</span> <span class="o">=</span> <span class="n">expr_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">expr_matrix</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">gene_names</span>
 
-<span class="c1"># 使用limma进行线性模型拟合</span>
+<span class="c1"># Perform linear model fitting using limma</span>
 <span class="n">fit_python</span> <span class="o">=</span> <span class="n">limma_py</span><span class="o">.</span><span class="n">lmFit</span><span class="p">(</span><span class="n">expr_matrix</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
 
-<span class="c1"># 设置对比矩阵：比较处理组(D_group)与对照组(V_group)的差异</span>
+<span class="c1"># Set up contrast matrix: compare treatment group (D_group) vs control group (V_group)</span>
 <span class="n">contrasts</span> <span class="o">=</span> <span class="n">limma_py</span><span class="o">.</span><span class="n">make_contrasts</span><span class="p">(</span><span class="s1">&#39;D_group - V_group&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">design</span><span class="p">)</span>
 
-<span class="c1"># 对拟合结果进行对比分析</span>
+<span class="c1"># Perform contrast analysis on fitted results</span>
 <span class="n">fit_python</span> <span class="o">=</span> <span class="n">limma_py</span><span class="o">.</span><span class="n">contrasts_fit</span><span class="p">(</span><span class="n">fit_python</span><span class="p">,</span> <span class="n">contrasts</span><span class="p">)</span>
 
-<span class="c1"># 使用经验贝叶斯方法调节标准误差</span>
+<span class="c1"># Apply empirical Bayes moderation of standard errors</span>
 <span class="n">eb_python</span> <span class="o">=</span> <span class="n">limma_py</span><span class="o">.</span><span class="n">eBayes</span><span class="p">(</span><span class="n">fit_python</span><span class="p">)</span>
 
-<span class="c1"># 提取差异表达分析结果表格</span>
+<span class="c1"># Extract differential expression analysis results table</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">limma_py</span><span class="o">.</span><span class="n">toptable</span><span class="p">(</span><span class="n">eb_python</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="_4">常见问题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>❌ 错误提示："数据维度不匹配"
-- 检查设计矩阵的行数是否与表达数据的列数（样本数）一致</p>
+<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
+<p>❌ Error message: "Data dimension mismatch"
+- Check if number of rows in design matrix matches number of columns in expression data (number of samples)</p>
 <ul>
-<li>检查组别向量的长度是否与样本数一致</li>
+<li>Check if length of group vector matches number of samples</li>
 </ul>
-<p>✅ 数据预处理检查清单
-- CSV文件第一列为基因名</p>
+<p>✅ Data Preprocessing Checklist
+- CSV file first column contains gene names</p>
 <ul>
 <li>
-<p>第一行为样本名</p>
+<p>First row contains sample names</p>
 </li>
 <li>
-<p>所有表达值为数值型</p>
+<p>All expression values are numerical</p>
 </li>
 <li>
-<p>无缺失值或已处理缺失值</p>
+<p>No missing values or missing values have been handled</p>
 </li>
 <li>
-<p>样本顺序与组别定义一致</p>
+<p>Sample order matches group definition</p>
 </li>
 </ul>
 
